@@ -1,0 +1,43 @@
+% Import Audio
+
+cd('E:\EEE RUET 20\EEE 3-2\EEE 3207\Assignment')
+
+% Load the audio file (replace with your filename)
+[audio, fs] = audioread('chaar_tiin2.mp3');  % fs = sampling frequency
+
+% Convert to mono if stereo
+if size(audio, 2) > 1
+    audio = mean(audio, 2);  % average the channels
+end
+
+% Time vector for plotting
+t = (0:length(audio)-1)/fs;
+
+% Plot waveform
+figure;
+plot(t, audio);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Waveform of clip1\_chaar\_tiin');
+
+% Extract individual words (adjust indices accordingly)
+chaar = audio(round(0.023*fs):round(0.4254*fs));
+tiin  = audio(round(0.5364*fs):round(0.93*fs));
+
+% Optional: Normalize
+chaar = chaar / max(abs(chaar));
+tiin = tiin / max(abs(tiin));
+
+figure;
+subplot(2,1,1);
+plot((0:length(chaar)-1)/fs, chaar);
+title('Word: chaar');
+xlabel('Time (s)');
+ylabel('Amplitude');
+
+subplot(2,1,2);
+plot((0:length(tiin)-1)/fs, tiin);
+title('Word: tiin');
+xlabel('Time (s)');
+ylabel('Amplitude');
+
